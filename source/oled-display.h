@@ -35,11 +35,24 @@
 /* Includes ------------------------------------------------------------------*/
 #include "oled-display-cfg.h"
 #include "font.h"
+   
+#if defined(OLED_DISPLAY_PRINTF_REDIRECT)
+#include "print.h"
+#endif
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 extern const unsigned char Font_6x8[];
 extern const unsigned char Segment_25x40[];
 /* Exported macro ------------------------------------------------------------*/
+#if defined(OLED_DISPLAY_PRINTF_REDIRECT)
+#define OLED_DISPLAY_Printf(_F, ...)  {                                        \
+                                PRINT_OutFunction(OLED_DISPLAY_Write);         \
+                                PRINT_Printf((uint8_t*)(_F), ##__VA_ARGS__);   \
+                               }
+#else
+#define USART_Printf(_F, ...)
+#warning (Printf not implimeted)            
+#endif
 /* Exported functions ------------------------------------------------------- */
 
 void
@@ -60,7 +73,7 @@ OLED_DISPLAY_FontSelect(const unsigned char* font,
                       );
 
 void 
-OLED_DISPLAY_WriteChar(char ch);
+OLED_DISPLAY_Write(uint8_t ch);
 
 void
 OLED_DISPLAY_WriteString(char* str);
