@@ -50,7 +50,7 @@ extern const unsigned char Segment_25x40[];
                                 PRINT_Printf((uint8_t*)(_F), ##__VA_ARGS__);   \
                                }
 #else
-#define USART_Printf(_F, ...)
+#define OLED_DISPLAY_Printf(_F, ...)
 #warning (Printf not implimeted)            
 #endif
 /* Exported functions ------------------------------------------------------- */
