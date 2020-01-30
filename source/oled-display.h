@@ -46,7 +46,7 @@ void
 OLED_DISPLAY_Init();
 
 void 
-OLED_DISAPLY_FillScreen(uint8_t pattern);
+OLED_DISPLAY_FillScreen(uint8_t pattern);
 
 void 
 OLED_DISPLAY_SetPointer(uint8_t seg, uint8_t pag);
