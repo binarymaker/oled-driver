@@ -262,7 +262,7 @@ OLED_DISPLAY_FillScreen(uint8_t pattern)
   
   for(pag = 0; pag < 8; pag++)
   {
-    OLED_DISPLAY_SetPointer(0, pag);
+    OLED_DISPLAY_Pointer(0, pag);
 
     OLED_DISPLAY_TransferMode(OLEDDISAPLY_MODE_RAMDATA);
     for(seg = 0; seg < 128; seg++)
@@ -335,7 +335,7 @@ OLED_DISPLAY_Icon(const unsigned char* img, uint8_t width_px_u8, uint8_t height_
   {
     OLED_DISPLAY_Pointer(oledDisaply.seg, oledDisaply.pag + row_u8);  
     OLED_DISPLAY_TransferMode(OLEDDISAPLY_MODE_RAMDATA);
-    for(col_u8 = 0; col_u8 < width_px_u8; col_u8++)
+    for(col_u8 = 0; (col_u8 < width_px_u8) && (col_u8 < 128); col_u8++)
     {
       uint8_t segPattern_u8 = pgm_read_byte(&img[(row_u8 * width_px_u8) + col_u8]);
       OLED_DISPLAY_Transfer(segPattern_u8);
