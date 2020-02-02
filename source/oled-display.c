@@ -323,3 +323,23 @@ OLED_DISPLAY_WriteString(char* str)
     OLED_DISPLAY_Write(str[ch]);
   }
 }
+
+void
+OLED_DISPLAY_Icon(const unsigned char* img, uint8_t width_px_u8, uint8_t height_px_u8)
+{
+  uint8_t height_pag_u8 =  height_px_u8/8;
+  uint8_t col_u8;
+  uint8_t row_u8;
+  
+  for (row_u8 = 0; row_u8 < height_pag_u8; row_u8++)
+  {
+    OLED_DISPLAY_Pointer(oledDisaply.seg, oledDisaply.pag + row_u8);  
+    OLED_DISPLAY_TransferMode(OLEDDISAPLY_MODE_RAMDATA);
+    for(col_u8 = 0; col_u8 < width_px_u8; col_u8++)
+    {
+      uint8_t segPattern_u8 = pgm_read_byte(&img[(row_u8 * width_px_u8) + col_u8]);
+      OLED_DISPLAY_Transfer(segPattern_u8);
+    }
+    OLED_DISPLAY_TransferEnd();
+  }
+}

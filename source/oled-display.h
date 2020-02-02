@@ -78,6 +78,9 @@ OLED_DISPLAY_Write(uint8_t ch);
 void
 OLED_DISPLAY_WriteString(char* str);
 
+void
+OLED_DISPLAY_Icon(const unsigned char* img, uint8_t width_px_u8, uint8_t height_px_u8);
+
 #ifdef __cplusplus
 }
 #endif
