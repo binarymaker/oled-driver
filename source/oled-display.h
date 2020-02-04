@@ -40,6 +40,12 @@
 #include "print.h"
 #endif
 /* Exported types ------------------------------------------------------------*/
+typedef enum
+{
+  OLED_DISPLAY_COLOUR_BLACK,
+  OLED_DISPLAY_COLOUR_WHITE
+}OLED_DISPLAY_COLOUR_et;
+
 /* Exported constants --------------------------------------------------------*/
 extern const unsigned char Font_6x8[];
 extern const unsigned char Segment_25x40[];
@@ -80,6 +86,9 @@ OLED_DISPLAY_WriteString(char* str);
 
 void
 OLED_DISPLAY_Icon(const unsigned char* img, uint8_t width_px_u8, uint8_t height_px_u8);
+
+void
+OLE_DISPLAY_PrintColour(OLED_DISPLAY_COLOUR_et colour);
 
 #ifdef __cplusplus
 }

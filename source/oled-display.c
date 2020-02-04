@@ -48,6 +48,9 @@ struct oledDisaply_s
 #define OLED_12C_ADDRESS    0x7A 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+
+static OLED_DISPLAY_COLOUR_et m_colour;
+
 const uint8_t Font_6x8[] PROGMEM= {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // (space)
 0x00, 0x00, 0x5F, 0x00, 0x00, 0x00, // !
@@ -305,6 +308,10 @@ OLED_DISPLAY_Write(uint8_t ch)
     for(charSeg = 0; charSeg < fontInfo.width; charSeg++)
     {
       segPattern = pgm_read_byte(&fontInfo.font[charLocation+(charSeg*fontInfo.height+charPag)]);
+      if(OLED_DISPLAY_COLOUR_WHITE == m_colour)
+      {
+        segPattern = ~segPattern;
+      }
       OLED_DISPLAY_Transfer(segPattern);
     }
     OLED_DISPLAY_TransferEnd();
@@ -338,8 +345,18 @@ OLED_DISPLAY_Icon(const unsigned char* img, uint8_t width_px_u8, uint8_t height_
     for(col_u8 = 0; (col_u8 < width_px_u8) && (col_u8 < 128); col_u8++)
     {
       uint8_t segPattern_u8 = pgm_read_byte(&img[(row_u8 * width_px_u8) + col_u8]);
+      if(OLED_DISPLAY_COLOUR_WHITE == m_colour)
+      {
+        segPattern_u8 = ~segPattern_u8;
+      }
       OLED_DISPLAY_Transfer(segPattern_u8);
     }
     OLED_DISPLAY_TransferEnd();
   }
+}
+
+void
+OLE_DISPLAY_PrintColour(OLED_DISPLAY_COLOUR_et colour)
+{
+  m_colour = colour;
 }
